@@ -4,8 +4,6 @@ import org.song.core.Entry;
 import org.song.core.WildcardEntry;
 import org.song.helper.AssertUtils;
 
-import java.nio.ByteBuffer;
-
 /**
  * Created by song on 16/9/6.
  */
@@ -18,10 +16,24 @@ public class ClassPath {
     private Entry userClassPath;
 
     public ClassPath() {
+        init();
+    }
+
+    private void init() {
+        initBootAndExtClassPath();
+    }
+
+
+    private void initBootAndExtClassPath() {
         String javaHome = System.getenv("JAVA_HOME");
         AssertUtils.notEmpty(javaHome, "Please set JAVA_HOME");
+        // jre/lib/*
         String bootClassPathString = javaHome + "/jre/lib/*";
         bootClasspath = new WildcardEntry(bootClassPathString);
+
+        // jre/lib/ext/*
+        String extClassPathString = javaHome + "/jre/lib/ext/*";
+        extClasspath = new WildcardEntry(extClassPathString);
     }
 
 
@@ -33,10 +45,4 @@ public class ClassPath {
         return null;
     }
 
-    public static void main(String[] args) throws Exception {
-        ClassPath classPath = new ClassPath();
-        byte[] bytes = classPath.readClass("java.lang.Object");
-        ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
-        System.out.println(Integer.toHexString(byteBuffer.getInt()).toUpperCase());
-    }
 }

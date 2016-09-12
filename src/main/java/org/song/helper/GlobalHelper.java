@@ -1,8 +1,5 @@
 package org.song.helper;
 
-import org.apache.commons.cli.CommandLine;
-import org.song.cmd.CmdParser;
-import org.song.cmd.JVMOption;
 import org.song.core.Entry;
 
 import java.util.List;
@@ -11,16 +8,6 @@ import java.util.List;
  * Created by song on 16/9/4.
  */
 public class GlobalHelper {
-
-    public JVMOption toJvmOption(CommandLine line) {
-        if (line != null) {
-            if (line.hasOption(CmdParser.CLASS_PATH)) {
-                String classPath = line.getOptionValue(CmdParser.CLASS_PATH);
-
-            }
-        }
-        return null;
-    }
 
 
     public static byte[] readClassFromEntryList(List<Entry> entryList, String className) {
