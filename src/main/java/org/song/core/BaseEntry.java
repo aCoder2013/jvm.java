@@ -11,7 +11,7 @@ public abstract class BaseEntry implements Entry {
 
     public static final String PATH_SEPARATOR = ":";
 
-    public Entry newEntry(String path) {
+    public static Entry newEntry(String path) {
         if(StringUtils.isEmpty(path)){
             throw new NullPointerException("path can't be null!");
         }

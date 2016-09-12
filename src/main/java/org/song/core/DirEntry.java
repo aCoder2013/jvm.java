@@ -23,7 +23,8 @@ public class DirEntry extends BaseEntry {
         if (StringUtils.isEmpty(className)) {
             return EMPTY_CLASS;
         }
-        String path = this.absolutePath + className;
+        className = className.replace('.','/');
+        String path = this.absolutePath + className + ".class";
         File file = new File(path);
         if (!file.exists()) {
             throw new ClassNotFoundException("class not found exception : " + className);
@@ -34,6 +35,5 @@ public class DirEntry extends BaseEntry {
         byte[] bytes = FileUtils.readFileToByteArray(file);
         return bytes;
     }
-
 
 }

@@ -1,6 +1,7 @@
 package org.song.cmd.support;
 
 import org.apache.commons.cli.*;
+import org.apache.commons.lang3.StringUtils;
 import org.song.classpath.ClassPath;
 import org.song.cmd.CmdParser;
 
@@ -35,7 +36,7 @@ public class DefaultCmdParser implements CmdParser {
         options.addOption(cp);
     }
 
-    public void parse(String[] args) throws Exception{
+    public void parse(String[] args) throws Exception {
         CommandLineParser parser = new DefaultParser();
         CommandLine line = null;
         try {
@@ -55,10 +56,17 @@ public class DefaultCmdParser implements CmdParser {
         }
     }
 
-    private void startJVM(CommandLine line) throws Exception{
-        ClassPath classPath = new ClassPath();
+    private void startJVM(CommandLine line) throws Exception {
+        String classpath = null;
+        if (line.hasOption(CLASS_PATH) || line.hasOption(CP)) {
+            classpath = line.getOptionValue(CLASS_PATH);
+            if (StringUtils.isEmpty(classpath)) {
+                classpath = line.getOptionValue(CP);
+            }
+        }
+        ClassPath classPath = new ClassPath(classpath);
         List<String> argList = line.getArgList();
-        if(argList == null || argList.size() > 1){
+        if (argList == null || argList.size() > 1) {
             System.err.println("find more than one class");
             System.exit(-1);
         }
@@ -69,13 +77,13 @@ public class DefaultCmdParser implements CmdParser {
         } catch (Exception e) {
             throw new ClassNotFoundException();
         }
-        if(bytes == null || bytes.length <= 0){
+        if (bytes == null || bytes.length <= 0) {
             System.err.println("class not exist ,or class content is null");
         }
         ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
         System.out.println(Integer.toHexString(byteBuffer.getInt()).toUpperCase());
         short minor = byteBuffer.getShort();
         short major = byteBuffer.getShort();
-        System.out.println(major+"."+minor);
+        System.out.println(major + "." + minor);
     }
 }

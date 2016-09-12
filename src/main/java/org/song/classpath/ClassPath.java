@@ -1,5 +1,7 @@
 package org.song.classpath;
 
+import org.apache.commons.lang3.StringUtils;
+import org.song.core.BaseEntry;
 import org.song.core.Entry;
 import org.song.core.WildcardEntry;
 import org.song.helper.AssertUtils;
@@ -16,11 +18,22 @@ public class ClassPath {
     private Entry userClassPath;
 
     public ClassPath() {
-        init();
+        this(null);
     }
 
-    private void init() {
+    public ClassPath(String cpOption) {
+        init(cpOption);
+    }
+
+    private void init(String cpOption) {
         initBootAndExtClassPath();
+        initUserClassPath(cpOption);
+    }
+
+    private void initUserClassPath(String cpOption) {
+        if (StringUtils.isNotEmpty(cpOption)) {
+            userClassPath = BaseEntry.newEntry(cpOption);
+        }
     }
 
 
@@ -39,7 +52,15 @@ public class ClassPath {
 
     public byte[] readClass(String className) throws Exception {
         byte[] bytes = bootClasspath.readClass(className);
-        if (bytes != null) {
+        if (bytes != null && bytes.length > 0) {
+            return bytes;
+        }
+        bytes = extClasspath.readClass(className);
+        if (bytes != null && bytes.length > 0) {
+            return bytes;
+        }
+        bytes = userClassPath.readClass(className);
+        if (bytes != null && bytes.length > 0) {
             return bytes;
         }
         return null;
