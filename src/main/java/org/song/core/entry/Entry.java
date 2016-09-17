@@ -1,4 +1,4 @@
-package org.song.core;
+package org.song.core.entry;
 
 /**
  * Created by song on 16/9/4.

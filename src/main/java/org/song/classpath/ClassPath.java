@@ -1,9 +1,9 @@
 package org.song.classpath;
 
 import org.apache.commons.lang3.StringUtils;
-import org.song.core.BaseEntry;
-import org.song.core.Entry;
-import org.song.core.WildcardEntry;
+import org.song.core.entry.BaseEntry;
+import org.song.core.entry.Entry;
+import org.song.core.entry.WildcardEntry;
 import org.song.helper.AssertUtils;
 
 /**

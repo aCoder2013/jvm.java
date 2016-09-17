@@ -1,6 +1,6 @@
 package org.song.helper;
 
-import org.song.core.Entry;
+import org.song.core.entry.Entry;
 
 import java.util.List;
 

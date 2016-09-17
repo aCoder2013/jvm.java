@@ -1,4 +1,4 @@
-package org.song.core;
+package org.song.core.entry;
 
 import org.song.helper.GlobalHelper;
 

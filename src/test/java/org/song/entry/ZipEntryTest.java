@@ -1,8 +1,8 @@
 package org.song.entry;
 
 import org.junit.Test;
-import org.song.core.Entry;
-import org.song.core.ZipEntry;
+import org.song.core.entry.Entry;
+import org.song.core.entry.ZipEntry;
 
 import java.nio.ByteBuffer;
 
